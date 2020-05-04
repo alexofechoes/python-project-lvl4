@@ -1,0 +1,32 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=e56f2e19260128e344598bc697e0e312e2161e849c661ace6c44774adea698b0
+language: python
+python: 3.7
+
+branches:
+  only:
+    - master
+
+before_install:
+  - pip install poetry
+install:
+  - make install
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - make lint
+  - make analyze
+  - make test-with-coverage
+after_script:
+  - ./cc-test-reporter format-coverage -d -t coverage.py coverage.xml after-build $TRAVIS_TEST_RESULT
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi
+
+deploy:
+  provider: heroku
+  app: "taskmanager"
+  api_key:
+    secure: ieVqSjkiXubylQbagrjJzamkqyXefOPLO15N4JcprBOxTsKkdWSRN+4uhK/eqYu0bbxY3tHk1eo3Rkq3botr1hsuW5n+0Lfg3QPU2/q7VTLKZVDKSQVl1TyHs+WKVobKnmapM86oFMVd8YiLG9idi0Uu6688WxN5ZiRgEbOYGfZs0Uf2UUdszuj+j4iPFUEq8zR61yiC9AijbKoGcDnda/mJbwAz4Gs3JQBjZb+a8cU5QTPjX5ao8opYL7HwtgnH4oxrSSOwp/RrL3W5NzTH3g5yTe7aAOVGfbCzvTcT6H0QizCLRgM/NABRPK7iG8phJhI01wHlT1wZmi6EASKEMV5I4x+cTTNUqk5XH5dbbdd+WLk1G5Z2ICfpqMcroPG6rgOYXX7Xy2z14UjQSKe9XYmZJBANaoX6pNM/lrzuQ/e1K5hLKxJEdCGTA/hSfcV7xyCj5+mXen4AirAnzbCv0W5ewJqUgWZ2iianpRT7wJ6bmFNyGVWD5e3RzzLtfC2XGBZNrlatmiFfKj0IZUIPke1QvGPU5MUXjDHSK9W/NOqKBXltwIvUidKnoBR2GKTps5o1beBKu58NeP1gCWH6dw65dj6V+HYjAUTq7Tr93ZHmfhR1ghhSahNKGogqsL+689WhcxxcZLmHBndTaMb8gAww8q8qRIr9C7uuYXuJpLU=
