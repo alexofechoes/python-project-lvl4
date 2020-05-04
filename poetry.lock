@@ -809,8 +809,19 @@ pep8-naming = ">=0.9.1,<0.10.0"
 pygments = ">=2.4,<3.0"
 typing_extensions = ">=3.6,<4.0"
 
+[[package]]
+category = "main"
+description = "Radically simplified static file serving for WSGI applications"
+name = "whitenoise"
+optional = false
+python-versions = ">=3.5, <4"
+version = "5.0.1"
+
+[package.extras]
+brotli = ["brotli"]
+
 [metadata]
-content-hash = "4478d99a99ba417d000bc748919ba4669341d3d06fa7c2de86a5111de6329308"
+content-hash = "17028cb7e950747b5a17b324f0285e0913d3e5ef8a66b7da5014721b7fd92ea5"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -1188,4 +1199,8 @@ wcwidth = [
 wemake-python-styleguide = [
     {file = "wemake-python-styleguide-0.14.0.tar.gz", hash = "sha256:633d738b65c7ddf0c2b9e26e9d889d76f0f1993a82902821da359f08b233dbc8"},
     {file = "wemake_python_styleguide-0.14.0-py3-none-any.whl", hash = "sha256:21e09b786a38f62399dc727ca801f49084dcbc025b5ac44faf8182f959deb6e0"},
+]
+whitenoise = [
+    {file = "whitenoise-5.0.1-py2.py3-none-any.whl", hash = "sha256:62556265ec1011bd87113fb81b7516f52688887b7a010ee899ff1fd18fd22700"},
+    {file = "whitenoise-5.0.1.tar.gz", hash = "sha256:0f9137f74bd95fa54329ace88d8dc695fbe895369a632e35f7a136e003e41d73"},
 ]

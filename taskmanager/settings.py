@@ -26,9 +26,12 @@ load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG', 0)
 
-ALLOWED_HOSTS = []  # type: ignore
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]  # type: ignore
 
 
 # Application definition
@@ -52,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
@@ -124,6 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 ROLLBAR = {
