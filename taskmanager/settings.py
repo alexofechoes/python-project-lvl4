@@ -31,6 +31,7 @@ DEBUG = os.getenv('DEBUG', 0)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'alexofechoes-taskmanager.herokuapp.com',
 ]  # type: ignore
 
 
