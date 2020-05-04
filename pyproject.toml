@@ -15,6 +15,7 @@ python-dotenv = "^0.13.0"
 rollbar = "^0.15.0"
 gunicorn = "^20.0.4"
 whitenoise = "^5.0.1"
+django-bootstrap4 = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
