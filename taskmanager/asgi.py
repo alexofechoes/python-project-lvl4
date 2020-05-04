@@ -1,4 +1,4 @@
-# type: ignore noqa E800
+# type: ignore # noqa E800
 """
 ASGI config for taskmanager project.
 
