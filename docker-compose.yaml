@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10.8
+    environment:
+      POSTGRES_DB: "taskmanager"
+      POSTGRES_USER: "taskmanager"
+      POSTGRES_PASSWORD: "taskmanager"
+    ports:
+        - 5432:5432
+    volumes:
+        - ./.docker/postgres/taskmanager_db:/var/lib/postgresql

@@ -1,4 +1,5 @@
 .PHONY: requirements
+	createsuperuser
 	server
 	shell
 
@@ -22,6 +23,9 @@ test-with-coverage:
 	poetry run pytest --cov=taskmanager tests  --cov-report xml
 
 # DJANGO
+createsuperuser:
+	poetry run python manage.py createsuperuser
+
 makemigrations:
 	poetry run python manage.py makemigrations
 
