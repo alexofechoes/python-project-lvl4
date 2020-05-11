@@ -18,7 +18,7 @@ class TaskState:
 
 class Task(models.Model):
     title = models.CharField(max_length=120) # noqa WPS432
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     creator = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
