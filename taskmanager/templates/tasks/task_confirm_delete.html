@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Tasks" "tasks:index" %}
+    {% breadcrumb object.title "tasks:detail" object.id %}
+    {% breadcrumb "Delete" "" %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm" class="btn btn-danger">
+    </form>
+{% endblock %}

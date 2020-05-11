@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'tasks:create' %}" class="btn btn-success">Create task</a>
+    <div class="mb-3"></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Status</th>
+                <th scope="col">Assigner</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in object_list %}
+                <tr>
+                    <td><a href="{% url 'tasks:detail' task.id %}">{{ task.title }}</a></td>
+                    <td><span class="badge badge-secondary">{{ task.state }}</span></td>
+                    <td>{{ task.assigner }}</td>
+                    <td>{{ task.creator }}</td>
+                    <td>{{ task.created_at }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>No tasks yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

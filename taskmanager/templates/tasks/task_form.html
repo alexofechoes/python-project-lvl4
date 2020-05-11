@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Tasks" "tasks:index" %}
+    {% if object %}
+        {% breadcrumb object.title "tasks:detail" object.id %}
+        {% breadcrumb "Update" "" %}
+    {% else %}
+        {% breadcrumb "Create" "" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        {% if object %}
+            <button type="submit" class="btn btn-primary">Update task</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Save task</button>
+        {% endif %}
+    </form>
+{% endblock %}

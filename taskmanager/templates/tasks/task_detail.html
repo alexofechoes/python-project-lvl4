@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Tasks" "/" %}
+    {% breadcrumb object.title "" %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <hr>
+    <div>
+        <a href="{% url 'tasks:edit' object.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'tasks:delete' object.id %}" class="btn btn-danger">Delete</a>
+        {% for state in object.get_available_state_transitions %}
+            <a href="{% url 'tasks:'|add:state.target object.id %}" class="btn btn-secondary">{{ state.target|title }}</a>
+        {% endfor %}
+    </div>
+    <hr>
+    <h3>{{ object.title }} <span class="badge badge-secondary">{{ object.state }}</span></h3>
+    <p></p>
+    <p>{{ object.description }}</p>
+{% endblock %}
