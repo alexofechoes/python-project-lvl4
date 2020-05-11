@@ -16,7 +16,7 @@
         <tbody>
             {% for task in object_list %}
                 <tr>
-                    <td><a href="{% url 'tasks:detail' task.id %}">{{ task.title }}</a></td>
+                    <td><a href="{% url 'tasks:detail' task.pk %}">{{ task.title }}</a></td>
                     <td><span class="badge badge-secondary">{{ task.state }}</span></td>
                     <td>{{ task.assigner }}</td>
                     <td>{{ task.creator }}</td>
