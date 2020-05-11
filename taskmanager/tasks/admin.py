@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from taskmanager.tasks.models import Task
+from taskmanager.tasks.models import Tag, Task
+
+admin.site.register(Tag)
 
 
 @admin.register(Task)
@@ -13,6 +15,7 @@ class TaskAdmin(admin.ModelAdmin):
         'created_at',
         'updated_at',
         'canceled_at',
+        'tags_to_string',
     )
 
     readonly_fields = (

@@ -8,6 +8,13 @@ from django.urls import reverse
 from django_fsm import FSMField, transition  # type: ignore
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=120, unique=True) # noqa WPS432
+
+    def __str__(self):
+        return '{name}'.format(name=self.name)
+
+
 class TaskState:
     NEW = 'new' # noqa WPS115
     PROGRESS = 'progress' # noqa WPS115
@@ -32,12 +39,16 @@ class Task(models.Model):
         related_name='assigner',
     )
     state = FSMField(default=TaskState.NEW)
+    tags = models.ManyToManyField(Tag)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     canceled_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return '{title} ({id})'.format(title=self.title, id=self.id)
+
+    def tags_to_string(self):
+        return ', '.join(tag.name for tag in self.tags.all())
 
     def get_absolute_url(self):
         return reverse('tasks:detail', args=[self.pk])

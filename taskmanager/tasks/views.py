@@ -24,7 +24,7 @@ class TaskDetailView(DetailView):
 
 class TaskCreateView(CreateView):
     model = Task
-    fields = ('title', 'description', 'assigner')
+    fields = ('title', 'description', 'assigner', 'tags')
 
     def form_valid(self, form):
         task = form.save(commit=False)
@@ -34,7 +34,7 @@ class TaskCreateView(CreateView):
 
 class TaskUpdateView(UpdateView):
     model = Task
-    fields = ('title', 'description', 'assigner')
+    fields = ('title', 'description', 'assigner', 'tags')
 
 
 class TaskDeleteView(DeleteView):

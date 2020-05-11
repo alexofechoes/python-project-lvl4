@@ -11,6 +11,7 @@
                 <th scope="col">Assigner</th>
                 <th scope="col">Creator</th>
                 <th scope="col">Created At</th>
+                <th scope="col">Tags</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                     <td>{{ task.assigner }}</td>
                     <td>{{ task.creator }}</td>
                     <td>{{ task.created_at }}</td>
+                    <td>{{ task.tags_to_string }}</td>
                 </tr>
             {% empty %}
                 <tr>
