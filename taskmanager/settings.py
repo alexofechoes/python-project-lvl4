@@ -57,6 +57,8 @@ LOGIN_REDIRECT_URL = 'tasks:index'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+BREADCRUMBS_TEMPLATE = 'django_bootstrap_breadcrumbs/bootstrap4.html'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
