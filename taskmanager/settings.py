@@ -61,6 +61,7 @@ BREADCRUMBS_TEMPLATE = 'django_bootstrap_breadcrumbs/bootstrap4.html'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,7 +70,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'taskmanager.middleware.LoginRequiredMiddleware',
 
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
