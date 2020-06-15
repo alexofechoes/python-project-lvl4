@@ -152,6 +152,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
