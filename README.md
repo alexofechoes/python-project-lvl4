@@ -5,6 +5,6 @@
 Taskmanager
 
 Preview on heroku:
-[https://alexofechoes-taskmanager.herokuapp.com/](https://alexofechoes-taskmanager.herokuapp.com/)
-Username: `demo`
+[https://alexofechoes-taskmanager.herokuapp.com/](https://alexofechoes-taskmanager.herokuapp.com/)  
+Username: `demo`  
 Password: `demodemo1`
