@@ -11,4 +11,4 @@ __pycache__
 *.pyc
 coverage.xml
 db.sqlite3
-/static/
+/staticfiles
