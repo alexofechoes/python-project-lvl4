@@ -41,7 +41,7 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         related_name='assigned_to',
     )
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return '{name} ({id})'.format(name=self.name, id=self.id)
