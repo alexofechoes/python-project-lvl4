@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
 {% block content %}
     <a href="{% url 'tasks:create' %}" class="btn btn-success">Create task</a>
-    <div class="mb-3"></div>
+    <div class="mb-4"></div>
+
+    <form method="get" class="mb-4">
+        {{ filter.form|crispy }}
+        <input type="submit" class="btn btn-success" />
+    </form>
+
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Title</th>
+                <th scope="col">Name</th>
                 <th scope="col">Status</th>
-                <th scope="col">Assigner</th>
+                <th scope="col">Assigned_to</th>
                 <th scope="col">Creator</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Tags</th>
             </tr>
         </thead>
         <tbody>
-            {% for task in object_list %}
+            {% for task in filter.qs %}
                 <tr>
-                    <td><a href="{% url 'tasks:detail' task.pk %}">{{ task.title }}</a></td>
-                    <td><span class="badge badge-secondary">{{ task.state }}</span></td>
-                    <td>{{ task.assigner }}</td>
+                    <td><a href="{% url 'tasks:detail' task.pk %}">{{ task.name }}</a></td>
+                    <td><span class="badge badge-secondary">{{ task.status }}</span></td>
+                    <td>{{ task.assigned_to.username }}</td>
                     <td>{{ task.creator }}</td>
                     <td>{{ task.created_at }}</td>
                     <td>{{ task.tags_to_string }}</td>

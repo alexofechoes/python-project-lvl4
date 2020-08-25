@@ -11,8 +11,30 @@ urlpatterns = [
     path('task/<int:pk>', views.TaskDetailView.as_view(), name='detail'),
     path('task/<int:pk>/edit', views.TaskUpdateView.as_view(), name='edit'),
     path('task/<int:pk>/delete', views.TaskDeleteView.as_view(), name='delete'),
-    path('task/<int:pk>/progress', views.progress, name='progress'),
-    path('task/<int:pk>/fulfilled', views.fulfilled, name='fulfilled'),
-    path('task/<int:pk>/returned', views.returned, name='returned'),
-    path('task/<int:pk>/canceled', views.canceled, name='canceled'),
+
+    path(
+        'task-status',
+        views.TaskStatusListView.as_view(),
+        name='status-list',
+    ),
+    path(
+        'task-status/<int:pk>',
+        views.TaskStatusDetailView.as_view(),
+        name='status-detail',
+    ),
+    path(
+        'task-status/create',
+        views.TaskStatusCreateView.as_view(),
+        name='status-create',
+    ),
+    path(
+        'task-status/<int:pk>/edit',
+        views.TaskStatusUpdateView.as_view(),
+        name='status-edit',
+    ),
+    path(
+        'task-status/<int:pk>/delete',
+        views.TaskStatusDeleteView.as_view(),
+        name='status-delete',
+    ),
 ]

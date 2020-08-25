@@ -5,7 +5,7 @@
 {% block breadcrumbs %}
     {{ block.super }}
     {% breadcrumb "Tasks" "/" %}
-    {% breadcrumb object.title "" %}
+    {% breadcrumb object.name "" %}
 {% endblock %}
 
 {% block content %}
@@ -14,20 +14,17 @@
     <div>
         <a href="{% url 'tasks:edit' object.id %}" class="btn btn-primary">Edit</a>
         <a href="{% url 'tasks:delete' object.id %}" class="btn btn-danger">Delete</a>
-        {% for state in object.get_available_state_transitions %}
-            <a href="{% url 'tasks:'|add:state.target object.id %}" class="btn btn-secondary">{{ state.target|title }}</a>
-        {% endfor %}
     </div>
     <hr>
     <div class="row">
         <div class="col-9">
-            <h1>{{ object.title }}</h1>
+            <h1>{{ object.name }}</h1>
             <p>{{ object.description }}</p>
         </div>
         <div class="col-3">
-            <div>Status: {{ object.state }}</div>
+            <div>Status: {{ object.status }}</div>
             <div>Creator: {{ object.creator }}</div>
-            <div>Assigner: {{ object.assigner }}</div>
+            <div>Assigned to: {{ object.assigned_to.username }}</div>
             <div>Tags: {{ object.tags_to_string }}</div>
         </div>
     </div>

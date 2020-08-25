@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Task Status" "tasks:status-list" %}
+    {% breadcrumb object.name "" %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <hr>
+    <div>
+        <a href="{% url 'tasks:status-edit' object.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'tasks:status-delete' object.id %}" class="btn btn-danger">Delete</a>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h1>{{ object.name }}</h1>
+        </div>
+    </div>
+{% endblock %}

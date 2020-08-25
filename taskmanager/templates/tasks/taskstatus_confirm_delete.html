@@ -4,8 +4,7 @@
 
 {% block breadcrumbs %}
     {{ block.super }}
-    {% breadcrumb "Tasks" "tasks:index" %}
-    {% breadcrumb object.name "tasks:detail" object.id %}
+    {% breadcrumb "Task Status" "tasks:status-list" %}
     {% breadcrumb "Delete" "" %}
 {% endblock %}
 

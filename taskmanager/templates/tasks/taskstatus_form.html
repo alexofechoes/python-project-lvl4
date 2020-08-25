@@ -5,9 +5,8 @@
 
 {% block breadcrumbs %}
     {{ block.super }}
-    {% breadcrumb "Tasks" "tasks:index" %}
+    {% breadcrumb "Task Status" "tasks:status-list" %}
     {% if object %}
-        {% breadcrumb object.name "tasks:detail" object.id %}
         {% breadcrumb "Update" "" %}
     {% else %}
         {% breadcrumb "Create" "" %}
@@ -21,9 +20,9 @@
         {{ form|crispy }}
 
         {% if object %}
-            <button type="submit" class="btn btn-primary">Update task</button>
+            <button type="submit" class="btn btn-primary">Update status</button>
         {% else %}
-            <button type="submit" class="btn btn-success">Save task</button>
+            <button type="submit" class="btn btn-success">Create status</button>
         {% endif %}
     </form>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'tasks:status-create' %}" class="btn btn-success">Create status</a>
+    <div class="mb-3"></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task_status in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'tasks:status-detail' task_status.pk %}">{{ task_status.name }}</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>No status yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

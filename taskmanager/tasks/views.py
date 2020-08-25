@@ -1,6 +1,4 @@
 """Views for tasks app."""
-
-from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -9,13 +7,15 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+from django_filters.views import FilterView  # type: ignore
 
-from taskmanager.tasks.models import Task
+from taskmanager.tasks.filters import TaskFilter
+from taskmanager.tasks.models import Task, TaskStatus
 
 
-class TaskListView(ListView):
-    model = Task
-    ordering = ('-created_at')
+class TaskListView(FilterView):
+    filterset_class = TaskFilter
+    ordering = ('-created_at',)
 
 
 class TaskDetailView(DetailView):
@@ -24,7 +24,7 @@ class TaskDetailView(DetailView):
 
 class TaskCreateView(CreateView):
     model = Task
-    fields = ('title', 'description', 'assigner', 'tags')
+    fields = ('name', 'description', 'assigned_to', 'status', 'tags')
 
     def form_valid(self, form):
         task = form.save(commit=False)
@@ -34,7 +34,7 @@ class TaskCreateView(CreateView):
 
 class TaskUpdateView(UpdateView):
     model = Task
-    fields = ('title', 'description', 'assigner', 'tags')
+    fields = ('name', 'description', 'assigned_to', 'status', 'tags')
 
 
 class TaskDeleteView(DeleteView):
@@ -42,29 +42,25 @@ class TaskDeleteView(DeleteView):
     success_url = reverse_lazy('tasks:index')
 
 
-def progress(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.progress()
-    task.save()
-    return redirect(task)
+class TaskStatusListView(ListView):
+    model = TaskStatus
+    ordering = ('id',)
 
 
-def fulfilled(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.fulfilled()
-    task.save()
-    return redirect(task)
+class TaskStatusDetailView(DetailView):
+    model = TaskStatus
 
 
-def returned(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.returned()
-    task.save()
-    return redirect(task)
+class TaskStatusCreateView(CreateView):
+    model = TaskStatus
+    fields = ('name',)
 
 
-def canceled(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.canceled()
-    task.save()
-    return redirect(task)
+class TaskStatusUpdateView(UpdateView):
+    model = TaskStatus
+    fields = ('name',)
+
+
+class TaskStatusDeleteView(DeleteView):
+    model = TaskStatus
+    success_url = reverse_lazy('tasks:task-status-list')

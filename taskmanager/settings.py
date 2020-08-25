@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'crispy_forms',
     'django_bootstrap_breadcrumbs',
+    'django_filters',
 ]
 
 LOGIN_URL = '/auth/login'
@@ -152,7 +153,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
