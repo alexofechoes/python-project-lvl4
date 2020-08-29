@@ -2,11 +2,10 @@ env:
   global:
     - CC_TEST_REPORTER_ID=e56f2e19260128e344598bc697e0e312e2161e849c661ace6c44774adea698b0
     - POSTGRES_DB=travis_ci_test
-    - POSTGRES_USER=testuser
-    - POSTGRES_PASSWORD=password
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=
     - POSTGRES_HOST=localhost
-    - POSTGRES_PORT=5433
-    - PGPORT=5433
+    - POSTGRES_PORT=5432
 language: python
 python: 3.7
 
@@ -24,8 +23,6 @@ services:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - sudo -u postgres psql -c "CREATE USER testuser WITH PASSWORD 'password'"
-  - sudo -u postgres psql -c "ALTER ROLE testuser SUPERUSER"
   - make migrate
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
