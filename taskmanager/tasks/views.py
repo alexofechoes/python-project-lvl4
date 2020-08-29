@@ -63,4 +63,4 @@ class TaskStatusUpdateView(UpdateView):
 
 class TaskStatusDeleteView(DeleteView):
     model = TaskStatus
-    success_url = reverse_lazy('tasks:task-status-list')
+    success_url = reverse_lazy('tasks:status-list')
