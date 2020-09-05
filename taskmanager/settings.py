@@ -53,7 +53,9 @@ INSTALLED_APPS = [
     'django_filters',
 ]
 
-LOGIN_URL = '/auth/login'
+APPEND_SLASH = False
+
+LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = 'tasks:index'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

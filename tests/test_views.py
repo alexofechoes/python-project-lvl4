@@ -65,7 +65,7 @@ def test_task_detail(client, user_credentials):
 
     task = TaskFactory()
 
-    response = client.get('/task/{id}'.format(id=task.id))
+    response = client.get('/tasks/{id}/'.format(id=task.id))
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -75,7 +75,7 @@ def test_task_detail(client, user_credentials):
 def test_task_create_page(client, user_credentials):
     client.login(**user_credentials)
 
-    response = client.get('/task/create')
+    response = client.get('/tasks/create/')
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -89,7 +89,7 @@ def test_task_create(client, user_credentials):
     task_status = TaskStatusFactory()
     assert not Task.objects.filter(name=task_name).exists()
 
-    response = client.post('/task/create', {
+    response = client.post('/tasks/create/', {
         'name': task_name,
         'status': task_status.id,
     })
@@ -103,7 +103,7 @@ def test_task_update_page(client, user_credentials):
 
     task = TaskFactory()
 
-    response = client.get('/task/{id}/edit'.format(id=task.id))
+    response = client.get('/tasks/{id}/edit/'.format(id=task.id))
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -118,7 +118,7 @@ def test_task_update(client, user_credentials):
     task_from_db = Task.objects.get(id=task.id)
     assert task_from_db.name != task_new_name
 
-    response = client.post('/task/{id}/edit'.format(id=task.id), {
+    response = client.post('/tasks/{id}/edit/'.format(id=task.id), {
         'name': task_new_name,
         'status': task_from_db.status.id,
     })
@@ -134,7 +134,7 @@ def test_task_delete(client, user_credentials):
     task = TaskFactory()
     assert Task.objects.filter(id=task.id).exists()
 
-    response = client.post('/task/{id}/delete'.format(id=task.id))
+    response = client.post('/tasks/{id}/delete/'.format(id=task.id))
     assert response.status_code == HTTPStatus.FOUND
     assert not Task.objects.filter(id=task.id).exists()
 
@@ -144,7 +144,7 @@ def test_task_status_list(client, user_credentials):
 
     task_statuses = TaskStatusFactory.create_batch(5)
 
-    response = client.get('/task-status')
+    response = client.get('/task-status/')
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -157,7 +157,7 @@ def test_task_status_detail(client, user_credentials):
 
     task_status = TaskStatusFactory()
 
-    response = client.get('/task-status/{id}'.format(id=task_status.id))
+    response = client.get('/task-status/{id}/'.format(id=task_status.id))
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -167,7 +167,7 @@ def test_task_status_detail(client, user_credentials):
 def test_task_status_create_page(client, user_credentials):
     client.login(**user_credentials)
 
-    response = client.get('/task-status/create')
+    response = client.get('/task-status/create/')
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -180,7 +180,7 @@ def test_task_status_create(client, user_credentials):
     task_status_name = 'new_test_task_status'
     assert not TaskStatus.objects.filter(name=task_status_name).exists()
 
-    response = client.post('/task-status/create', {
+    response = client.post('/task-status/create/', {
         'name': task_status_name,
     })
 
@@ -193,7 +193,7 @@ def test_task_status_update_page(client, user_credentials):
 
     task_status = TaskStatusFactory()
 
-    response = client.get('/task-status/{id}/edit'.format(id=task_status.id))
+    response = client.get('/task-status/{id}/edit/'.format(id=task_status.id))
     response_body = response.content.decode()
 
     assert response.status_code == HTTPStatus.OK
@@ -208,9 +208,10 @@ def test_task_status_update(client, user_credentials):
     task_status_from_db = TaskStatus.objects.get(id=task_status.id)
     assert task_status_from_db.name != task_status_new_name
 
-    response = client.post('/task-status/{id}/edit'.format(id=task_status.id), {
-        'name': task_status_new_name,
-    })
+    response = client.post(
+        '/task-status/{id}/edit/'.format(id=task_status.id),
+        {'name': task_status_new_name},
+    )
 
     updated_task_status_from_db = TaskStatus.objects.get(id=task_status.id)
     assert response.status_code == HTTPStatus.FOUND
@@ -223,6 +224,8 @@ def test_task_status_delete(client, user_credentials):
     task_status = TaskStatusFactory()
     assert TaskStatus.objects.filter(name=task_status.name).exists()
 
-    response = client.post('/task-status/{id}/delete'.format(id=task_status.id))
+    response = client.post(
+        '/task-status/{id}/delete/'.format(id=task_status.id),
+    )
     assert response.status_code == HTTPStatus.FOUND
     assert not TaskStatus.objects.filter(name=task_status.name).exists()
