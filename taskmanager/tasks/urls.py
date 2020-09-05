@@ -1,5 +1,4 @@
 """Tasks URL Configuration."""
-from taskmanager.tasks.views import TaskStatusListView
 from django.urls import path
 from django.urls.conf import include
 
